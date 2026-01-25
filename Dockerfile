@@ -1,15 +1,12 @@
-# Usamos Java 17 que es la versión estable para Render
+# Etapa 1: Construcción (Build)
+FROM maven:3.8.5-openjdk-17 AS build
+COPY . .
+RUN mvn clean package -DskipTests
+
+# Etapa 2: Ejecución (Runtime)
 FROM eclipse-temurin:17-jre-alpine
-
-# Directorio donde vivirá la app en el servidor
 WORKDIR /app
-
-# COPIAMOS el archivo .jar que generaste con el Clean and Build
-# La ruta es target/ seguido del nombre exacto de tu archivo
-COPY target/BackendProyectoBW-0.0.1-SNAPSHOT.jar app.jar
-
-# El puerto que configuraste en application.properties
+# Copiamos el jar desde la etapa de construcción
+COPY --from=build /target/BackendProyectoBW-0.0.1-SNAPSHOT.jar app.jar
 EXPOSE 8080
-
-# Comando para iniciar la aplicación con memoria optimizada
 ENTRYPOINT ["java", "-Xmx256m", "-jar", "app.jar"]
