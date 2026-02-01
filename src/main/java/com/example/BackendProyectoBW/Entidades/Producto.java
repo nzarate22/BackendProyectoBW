@@ -7,7 +7,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import java.util.List;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Producto {
@@ -19,7 +18,6 @@ public class Producto {
     private String descripcion;
     private double precio;
     private int maxSalsas;
-    @JsonIgnore
     @OneToMany(mappedBy = "producto", fetch=FetchType.EAGER) // SE OCUPA mappedBy PARA QUE NO SE CREE OTRA TABLA, PARA QUE SPRING VAYA DIRECTO A LA TABLA RECETA. ONE TO MANY ES DE UNO A MUCHOS
     private List<Receta> ingredientesReceta;
 
