@@ -20,6 +20,7 @@ public class DetallePedido {
     @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name = "idProducto")
     private Producto producto;
+    private String salsas;
     private int cantidad;
     private double subtotal;
 
@@ -56,6 +57,14 @@ public class DetallePedido {
 
     public void setProducto(Producto producto) {
         this.producto = producto;
+    }
+    
+        public String getSalsas() {
+        return salsas;
+    }
+
+    public void setSalsas(String salsas) {
+        this.salsas = salsas;
     }
 
     public int getCantidad() {
